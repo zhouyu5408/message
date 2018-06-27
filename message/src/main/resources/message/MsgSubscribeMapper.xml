@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgSubscribeMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.MsgSubscribe">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="TITLE_ID" property="titleId" jdbcType="VARCHAR" />
+		<result column="TITLE_NAME" property="titleName" jdbcType="VARCHAR" />
+		<result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR" />
+		<result column="FLAG" property="flag" jdbcType="VARCHAR" />
+		<result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+		<result column="SUB_TYPE" property="subType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, USER_ID, USER_NAME, TITLE_ID, TITLE_NAME, DELIVERY_WAY,
+		FLAG,
+		GROUP_ID, GROUP_NAME,
+		SUB_TYPE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_SUBSCRIBE
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MSG_SUBSCRIBE
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.MsgSubscribe">
+		insert into MSG_SUBSCRIBE (ID,
+		USER_ID, USER_NAME,
+		TITLE_ID, TITLE_NAME, DELIVERY_WAY,
+		FLAG, GROUP_ID,
+		GROUP_NAME,
+		SUB_TYPE)
+		values (#{id,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{titleId,jdbcType=VARCHAR}, #{titleName,jdbcType=VARCHAR},
+		#{deliveryWay,jdbcType=VARCHAR},
+		#{flag,jdbcType=VARCHAR},
+		#{groupId,jdbcType=VARCHAR},
+		#{groupName,jdbcType=VARCHAR},
+		#{subType,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.MsgSubscribe">
+		insert into MSG_SUBSCRIBE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="titleId != null">
+				TITLE_ID,
+			</if>
+			<if test="titleName != null">
+				TITLE_NAME,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="subType != null">
+				SUB_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="titleName != null">
+				#{titleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subType != null">
+				#{subType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgSubscribe">
+		update MSG_SUBSCRIBE
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				TITLE_ID = #{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="titleName != null">
+				TITLE_NAME = #{titleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				FLAG = #{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				GROUP_ID = #{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subType != null">
+				SUB_TYPE = #{subType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.MsgSubscribe">
+		update
+		MSG_SUBSCRIBE
+		set USER_ID = #{userId,jdbcType=VARCHAR},
+		USER_NAME =
+		#{userName,jdbcType=VARCHAR},
+		TITLE_ID = #{titleId,jdbcType=VARCHAR},
+		TITLE_NAME = #{titleName,jdbcType=VARCHAR},
+		DELIVERY_WAY =
+		#{deliveryWay,jdbcType=VARCHAR},
+		FLAG = #{flag,jdbcType=VARCHAR},
+		GROUP_ID = #{groupId,jdbcType=VARCHAR},
+		GROUP_NAME =
+		#{groupName,jdbcType=VARCHAR},
+		SUB_TYPE = #{subType,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+
+	<!-- 根据主题ID获取订阅关系 -->
+	<select id="getListByTitleId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		distinct
+		USER_ID,GROUP_ID,SUB_TYPE
+		FROM MSG_SUBSCRIBE
+		WHERE TITLE_ID =#{titleId}
+		AND FLAG = 'yes'
+	</select>
+
+	<!-- 如果存在组订阅信息，则跳过 -->
+	<insert id="insertGroupMsgSubIfNotExists" parameterType="com.message.entity.MsgSubscribe">
+		insert into MSG_SUBSCRIBE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="titleId != null">
+				TITLE_ID,
+			</if>
+			<if test="titleName != null">
+				TITLE_NAME,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="subType != null">
+				SUB_TYPE,
+			</if>
+		</trim>
+		<trim prefix="select " suffix="from dual " suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="titleName != null">
+				#{titleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subType != null">
+				#{subType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		where not exists (select id from msg_subscribe where
+		GROUP_ID=#{groupId} and
+		title_id=#{titleId} and
+		delivery_way=#{deliveryWay} and flag='yes' and SUB_TYPE='group')
+	</insert>
+
+	<!-- 如果存在角色订阅信息，则跳过 -->
+	<insert id="insertRoleMsgSubIfNotExists" parameterType="com.message.entity.MsgSubscribe">
+		insert into MSG_SUBSCRIBE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="titleId != null">
+				TITLE_ID,
+			</if>
+			<if test="titleName != null">
+				TITLE_NAME,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="subType != null">
+				SUB_TYPE,
+			</if>
+		</trim>
+		<trim prefix="select " suffix="from dual " suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="titleName != null">
+				#{titleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subType != null">
+				#{subType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		where not exists (select id from msg_subscribe where
+		GROUP_ID=#{groupId} and
+		title_id=#{titleId} and
+		delivery_way=#{deliveryWay} and flag='yes' and SUB_TYPE='role')
+	</insert>
+
+	<!-- 如果存在机构订阅信息，则跳过 -->
+	<insert id="insertOrgMsgSubIfNotExists" parameterType="com.message.entity.MsgSubscribe">
+		insert into MSG_SUBSCRIBE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="titleId != null">
+				TITLE_ID,
+			</if>
+			<if test="titleName != null">
+				TITLE_NAME,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="subType != null">
+				SUB_TYPE,
+			</if>
+		</trim>
+		<trim prefix="select " suffix="from dual " suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="titleName != null">
+				#{titleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subType != null">
+				#{subType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		where not exists (select id from msg_subscribe where
+		GROUP_ID=#{groupId} and
+		title_id=#{titleId} and
+		delivery_way=#{deliveryWay} and flag='yes' and SUB_TYPE='org')
+	</insert>
+
+	<!-- 如果存在用户订阅信息，则跳过 -->
+	<insert id="insertUserMsgSubIfNotExists" parameterType="com.message.entity.MsgSubscribe">
+		insert into MSG_SUBSCRIBE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="titleId != null">
+				TITLE_ID,
+			</if>
+			<if test="titleName != null">
+				TITLE_NAME,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="subType != null">
+				SUB_TYPE,
+			</if>
+		</trim>
+		<trim prefix="select " suffix="from dual " suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="titleName != null">
+				#{titleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subType != null">
+				#{subType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		where not exists (select id from msg_subscribe where USER_ID=#{userId}
+		and
+		title_id=#{titleId} and delivery_way=#{deliveryWay} and flag='yes'
+		and SUB_TYPE='user')
+	</insert>
+
+	<!-- 删除订阅关系意味着将订阅关系从有效变成无效（true==>false） -->
+	<update id="updateMsgSubscribeToFalse" parameterType="java.lang.String">
+		update
+		msg_subscribe set flag ='false' where id =#{id}
+	</update>
+
+	<!-- 根据订阅类型获取对应的有效订阅列表 -->
+	<select id="getMsgSubscribeBySubType" parameterType="com.message.entity.MsgSubscribe"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_SUBSCRIBE
+		WHERE FLAG = 'yes' AND SUB_TYPE=#{subType}
+		<if test="userId != null and userId !=''">
+			AND USER_ID like '%${userId}%'
+		</if>
+		<if test="userName != null and userName !=''">
+			AND USER_NAME like '%${userName}%'
+		</if>
+		<if test="titleName != null and titleName !=''">
+			AND TITLE_NAME like '%${titleName}%'
+		</if>
+		<if test="deliveryWay != null and deliveryWay !=''">
+			AND DELIVERY_WAY=#{deliveryWay}
+		</if>
+		<if test="groupId != null and groupId !=''">
+			AND GROUP_ID like '%${groupId}%'
+		</if>
+		<if test="groupName != null and groupName !=''">
+			AND GROUP_NAME like '%${groupName}%'
+		</if>
+		<!-- 排序 -->
+		<if test="sort != null and sort !=''">
+			ORDER BY ${sort} ${order}
+		</if>
+	</select>
+
+	<!-- 根据主题编号和组编号获取对应的订阅关系 -->
+	<select id="getListByTitleIdAndGroupId" parameterType="com.message.entity.MsgSubscribe"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_SUBSCRIBE
+		WHERE SUB_TYPE=#{subType} AND TITLE_ID=#{titleId}
+		AND GROUP_ID=#{groupId}
+	</select>
+
+	<!-- 根据主题编号和用户编号获取对应的订阅关系 -->
+	<select id="getListByTitleAndUser" parameterType="com.message.entity.MsgSubscribe"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_SUBSCRIBE
+		WHERE SUB_TYPE=#{subType} AND TITLE_ID=#{titleId}
+		AND USER_ID=#{userId}
+	</select>
+
+	<!-- 批量删除选中的订阅关系 -->
+	<delete id="batchDelete">
+		DELETE FROM MSG_SUBSCRIBE WHERE
+		ID IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- 根据主题编号和主题编号删除 -->
+	<delete id="deleteByTitleAndGroup" parameterType="com.message.entity.MsgSubscribe">
+		delete from
+		MSG_SUBSCRIBE
+		where TITLE_ID=#{titleId} AND GROUP_ID=#{groupId}
+	</delete>
+
+	<!-- 根据主题编号和用户编号删除 -->
+	<delete id="deleteByTitleAndUser" parameterType="com.message.entity.MsgSubscribe">
+		delete from
+		MSG_SUBSCRIBE
+		where TITLE_ID=#{titleId} AND USER_ID=#{userId}
+	</delete>
+
+	<!-- 前查看是否已经存在该记录了 -->
+	<select id="searchByTitleGroupDeliveryway" parameterType="com.message.entity.MsgSubscribe">
+		SELECT
+		ID
+		FROM MSG_SUBSCRIBE
+		WHERE GROUP_ID=#{groupId} AND TITLE_ID=#{titleId}
+		AND
+		DELIVERY_WAY=#{deliveryWay}
+	</select>
+
+	<!-- 查看用户订阅记录是否已经存在 -->
+	<select id="searchByTitleUserDeliveryway" parameterType="com.message.entity.MsgSubscribe">
+		SELECT
+		ID
+		FROM MSG_SUBSCRIBE
+		WHERE USER_ID=#{userId} AND TITLE_ID=#{titleId}
+		AND
+		DELIVERY_WAY=#{deliveryWay}
+	</select>
+
+	<!-- 删除主题订阅者(用户、机构、角色(组除外)) -->
+	<delete id="deleteTitleSubscribe">
+		delete from
+		MSG_SUBSCRIBE
+		where SUB_TYPE
+		IN('user','org','role')
+		AND TITLE_ID=#{titleId}
+	</delete>
+
+	<!-- 删除主题订阅的所有对象 -->
+	<delete id="deleteTitleAllSubscribe">
+		delete from
+		MSG_SUBSCRIBE
+		where TITLE_ID=#{titleId}
+	</delete>
+
+	<!-- 获取主题订阅的所有方式 -->
+	<select id="getDeliveryWaysByTitleId" resultMap="BaseResultMap">
+		SELECT
+		distinct
+		DELIVERY_WAY
+		FROM MSG_SUBSCRIBE
+		WHERE TITLE_ID=#{titleId}
+	</select>
+</mapper>

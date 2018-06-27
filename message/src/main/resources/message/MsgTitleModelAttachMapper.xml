@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgTitleModelAttachMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.MsgTitleModelAttach">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="ATTACH_NAME" property="attachName" jdbcType="VARCHAR" />
+		<result column="ATTACH_ADDRESS" property="attachAddress"
+			jdbcType="VARCHAR" />
+		<result column="ATTACH_GROUP_ID" property="attachGroupId"
+			jdbcType="VARCHAR" />
+		<result column="FLAG" property="flag" jdbcType="VARCHAR" />
+		<result column="FILE_KEY" property="fileKey" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ATTACH_NAME, ATTACH_ADDRESS, ATTACH_GROUP_ID,
+		FLAG,FILE_KEY
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_TITLE_MODEL_ATTACH
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MSG_TITLE_MODEL_ATTACH
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.MsgTitleModelAttach">
+		insert into
+		MSG_TITLE_MODEL_ATTACH (ID, ATTACH_NAME, ATTACH_ADDRESS,
+		ATTACH_GROUP_ID, FLAG,FILE_KEY)
+		values (#{id,jdbcType=VARCHAR},
+		#{attachName,jdbcType=VARCHAR},
+		#{attachAddress,jdbcType=VARCHAR},
+		#{attachGroupId,jdbcType=VARCHAR},
+		#{flag,jdbcType=VARCHAR}),
+		#{fileKey,jdbcType=VARCHAR},
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.MsgTitleModelAttach">
+		insert into MSG_TITLE_MODEL_ATTACH
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="attachName != null">
+				ATTACH_NAME,
+			</if>
+			<if test="attachAddress != null">
+				ATTACH_ADDRESS,
+			</if>
+			<if test="attachGroupId != null">
+				ATTACH_GROUP_ID,
+			</if>
+			<if test="flag != null">
+				FLAG,
+			</if>
+			<if test="fileKey != null">
+				FILE_KEY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="attachName != null">
+				#{attachName,jdbcType=VARCHAR},
+			</if>
+			<if test="attachAddress != null">
+				#{attachAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="attachGroupId != null">
+				#{attachGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="fileKey != null">
+				#{fileKey,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgTitleModelAttach">
+		update MSG_TITLE_MODEL_ATTACH
+		<set>
+			<if test="attachName != null">
+				ATTACH_NAME = #{attachName,jdbcType=VARCHAR},
+			</if>
+			<if test="attachAddress != null">
+				ATTACH_ADDRESS = #{attachAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="attachGroupId != null">
+				ATTACH_GROUP_ID = #{attachGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="falg != null">
+				FLAG = #{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="fileKey != null">
+				FILE_KEY = #{fileKey,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.MsgTitleModelAttach">
+		update
+		MSG_TITLE_MODEL_ATTACH
+		set ATTACH_NAME =
+		#{attachName,jdbcType=VARCHAR},
+		ATTACH_ADDRESS =
+		#{attachAddress,jdbcType=VARCHAR},
+		ATTACH_GROUP_ID =
+		#{attachGroupId,jdbcType=VARCHAR},
+		FLAG = #{flag,jdbcType=VARCHAR},
+		FILE_KEY =
+		#{fileKey,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 获取附件组中的所有附件信息 -->
+	<select id="getAttachListByGroupId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_TITLE_MODEL_ATTACH WHERE FLAG='yes'
+		AND ATTACH_GROUP_ID
+		=#{attachGroupId}
+	</select>
+
+	<update id="failureFileKey" parameterType="java.lang.String">
+		UPDATE
+		MSG_TITLE_MODEL_ATTACH SET FLAG ='no'
+		WHERE FILE_KEY=#{fileKey}
+	</update>
+
+	<!-- 删除delKeys对应的附件信息 -->
+	<delete id="deleteByFileKeys">
+		DELETE FROM MSG_TITLE_MODEL_ATTACH WHERE
+		FILE_KEY IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- 根据附件组编号删除附件信息 -->
+	<delete id="deleteByAttachGroupId" parameterType="java.lang.String">
+		delete from
+		MSG_TITLE_MODEL_ATTACH
+		where ATTACH_GROUP_ID=#{attachGroupId}
+	</delete>
+</mapper>

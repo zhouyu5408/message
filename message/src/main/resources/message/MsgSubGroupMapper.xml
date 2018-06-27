@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgSubGroupMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.MsgSubGroup">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="SUB_GROUP_ID" property="subGroupId" jdbcType="VARCHAR" />
+		<result column="SUB_GROUP_NAME" property="subGroupName"
+			jdbcType="VARCHAR" />
+		<result column="SUB_GROUP_DESC" property="subGroupDesc"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, SUB_GROUP_ID, SUB_GROUP_NAME,SUB_GROUP_DESC
+	</sql>
+	<sql id="Param_Column">
+		ID, SUB_GROUP_ID, SUB_GROUP_NAME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_SUB_GROUP
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MSG_SUB_GROUP
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.MsgSubGroup">
+		insert into MSG_SUB_GROUP (ID,
+		SUB_GROUP_ID, SUB_GROUP_NAME,SUB_GROUP_DESC
+		)
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{subGroupId,jdbcType=VARCHAR},
+		#{subGroupName,jdbcType=VARCHAR},
+		#{subGroupDesc,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.MsgSubGroup">
+		insert into MSG_SUB_GROUP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="subGroupId != null">
+				SUB_GROUP_ID,
+			</if>
+			<if test="subGroupName != null">
+				SUB_GROUP_NAME,
+			</if>
+			<if test="subGroupDesc != null">
+				SUB_GROUP_DESC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="subGroupId != null">
+				#{subGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="subGroupName != null">
+				#{subGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subGroupDesc != null">
+				#{SUB_GROUP_DESC,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgSubGroup">
+		update MSG_SUB_GROUP
+		<set>
+			<if test="subGroupId != null">
+				SUB_GROUP_ID = #{subGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="subGroupName != null">
+				SUB_GROUP_NAME = #{subGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="subGroupDesc != null">
+				SUB_GROUP_DESC = #{subGroupDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.MsgSubGroup">
+		update
+		MSG_SUB_GROUP
+		set SUB_GROUP_ID = #{subGroupId,jdbcType=VARCHAR},
+		SUB_GROUP_NAME = #{subGroupName,jdbcType=VARCHAR},
+		SUB_GROUP_DESC =
+		#{subGroupDesc,jdbcType=VARCHAR}
+		where ID =
+		#{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- ******************************************************************************* -->
+	<!-- 根据组编号删除 -->
+	<delete id="deleteByGroupId" parameterType="java.lang.String">
+		delete from
+		MSG_SUB_GROUP
+		where SUB_GROUP_ID = #{subGroupId}
+	</delete>
+
+	<!-- 根据组编号查询 -->
+	<select id="getByGroupId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_SUB_GROUP
+		where SUB_GROUP_ID = #{subGroupId}
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="search" parameterType="com.message.entity.MsgSubGroup"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_SUB_GROUP
+		WHERE 1=1
+		<if test="subGroupId != null and subGroupId !=''">
+			AND SUB_GROUP_ID LIKE '%${subGroupId}%'
+		</if>
+		<if test="subGroupName != null and subGroupName !=''">
+			AND SUB_GROUP_NAME LIKE '%${subGroupName}%'
+		</if>
+		<!-- 排序 -->
+		<if test="sort != null and sort !=''">
+			ORDER BY ${sort} ${order}
+		</if>
+	</select>
+
+	<!-- 获取所有的订阅组 -->
+	<select id="getAllSubGroup" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Param_Column" />
+		FROM MSG_SUB_GROUP
+	</select>
+</mapper>

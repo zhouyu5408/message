@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgParamMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.MsgParam">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="PARAM_NO" property="paramNo" jdbcType="VARCHAR" />
+		<result column="PARAM_NAME" property="paramName" jdbcType="VARCHAR" />
+		<result column="PARAM_VALUE" property="paramValue" jdbcType="VARCHAR" />
+		<result column="PARAM_TYPE" property="paramType" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="IS_MODIFY" property="isModify" jdbcType="VARCHAR" />
+		<result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, PARAM_NO, PARAM_NAME, PARAM_VALUE, PARAM_TYPE, REMARK, IS_MODIFY,
+		MODIFY_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_PARAM
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from MSG_PARAM
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.MsgParam">
+		insert into MSG_PARAM (ID, PARAM_NO, PARAM_NAME,
+		PARAM_VALUE, PARAM_TYPE, REMARK,
+		IS_MODIFY, MODIFY_TIME)
+		values (#{id,jdbcType=VARCHAR}, #{paramNo,jdbcType=VARCHAR},
+		#{paramName,jdbcType=VARCHAR},
+		#{paramValue,jdbcType=VARCHAR}, #{paramType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{isModify,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.MsgParam">
+		insert into MSG_PARAM
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="paramNo != null">
+				PARAM_NO,
+			</if>
+			<if test="paramName != null">
+				PARAM_NAME,
+			</if>
+			<if test="paramValue != null">
+				PARAM_VALUE,
+			</if>
+			<if test="paramType != null">
+				PARAM_TYPE,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="isModify != null">
+				IS_MODIFY,
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="paramNo != null">
+				#{paramNo,jdbcType=VARCHAR},
+			</if>
+			<if test="paramName != null">
+				#{paramName,jdbcType=VARCHAR},
+			</if>
+			<if test="paramValue != null">
+				#{paramValue,jdbcType=VARCHAR},
+			</if>
+			<if test="paramType != null">
+				#{paramType,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="isModify != null">
+				#{isModify,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgParam">
+		update MSG_PARAM
+		<set>
+			<if test="paramNo != null">
+				PARAM_NO = #{paramNo,jdbcType=VARCHAR},
+			</if>
+			<if test="paramName != null">
+				PARAM_NAME = #{paramName,jdbcType=VARCHAR},
+			</if>
+			<if test="paramValue != null">
+				PARAM_VALUE = #{paramValue,jdbcType=VARCHAR},
+			</if>
+			<if test="paramType != null">
+				PARAM_TYPE = #{paramType,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="isModify != null">
+				IS_MODIFY = #{isModify,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.MsgParam">
+		update MSG_PARAM
+		set PARAM_NO = #{paramNo,jdbcType=VARCHAR},
+		PARAM_NAME = #{paramName,jdbcType=VARCHAR},
+		PARAM_VALUE = #{paramValue,jdbcType=VARCHAR},
+		PARAM_TYPE = #{paramType,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		IS_MODIFY = #{isModify,jdbcType=VARCHAR},
+		MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 根据参数名获取参数信息 -->
+	<select id="getParamByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_PARAM
+		WHERE PARAM_NAME=#{paramName}
+	</select>
+</mapper>

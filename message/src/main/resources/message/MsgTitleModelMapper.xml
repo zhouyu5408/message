@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgTitleModelMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.MsgTitleModel">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="TITLE_ID" property="titleId" jdbcType="VARCHAR" />
+		<result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR" />
+		<result column="TITLE_MODEL" property="titleModel" jdbcType="VARCHAR" />
+		<result column="ATTACH_GROUP_ID" property="attachGroupId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TITLE_ID, DELIVERY_WAY,
+		TITLE_MODEL,
+		ATTACH_GROUP_ID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_TITLE_MODEL
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MSG_TITLE_MODEL
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.MsgTitleModel">
+		insert into MSG_TITLE_MODEL
+		(ID, TITLE_ID, DELIVERY_WAY, TITLE_MODEL,
+		ATTACH_GROUP_ID)
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{titleId,jdbcType=VARCHAR},
+		#{deliveryWay,jdbcType=VARCHAR},
+		#{titleModel,jdbcType=VARCHAR},
+		#{attachGroupId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.MsgTitleModel">
+		insert into MSG_TITLE_MODEL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="titleId != null">
+				TITLE_ID,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="titleModel != null">
+				TITLE_MODEL,
+			</if>
+			<if test="attachGroupId != null">
+				ATTACH_GROUP_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="titleModel != null">
+				#{titleModel,jdbcType=VARCHAR},
+			</if>
+			<if test="attachGroupId != null">
+				#{attachGroupId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgTitleModel">
+		update MSG_TITLE_MODEL
+		<set>
+			<if test="titleId != null">
+				TITLE_ID = #{titleId,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="titleModel != null">
+				TITLE_MODEL = #{titleModel,jdbcType=VARCHAR},
+			</if>
+			<if test="attachGroupId != null">
+				ATTACH_GROUP_ID = #{attachGroupId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.MsgTitleModel">
+		update
+		MSG_TITLE_MODEL
+		set TITLE_ID = #{titleId,jdbcType=VARCHAR},
+		DELIVERY_WAY =
+		#{deliveryWay,jdbcType=VARCHAR},
+		TITLE_MODEL =
+		#{titleModel,jdbcType=VARCHAR},
+		ATTACH_GROUP_ID =
+		#{attachGroupId,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getModelByIdAndWay" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_TITLE_MODEL WHERE TITLE_ID =#{titleId}
+		AND DELIVERY_WAY
+		=#{deliveryWay}
+	</select>
+
+	<!-- 通过主题编号和订阅方式修改对应的模版 -->
+	<update id="updateModelByTitleAndDeliveryWay" parameterType="com.message.entity.MsgTitleModel">
+		update MSG_TITLE_MODEL
+		<set>
+			<if test="titleModel != null">
+				TITLE_MODEL = #{titleModel,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where TITLE_ID=#{titleId} AND DELIVERY_WAY=#{deliveryWay}
+	</update>
+
+	<!-- 删除指定主题所有的相关信息 -->
+	<delete id="deleteByTitleId" parameterType="java.lang.String">
+		delete from
+		MSG_TITLE_MODEL
+		where TITLE_ID=#{titleId}
+	</delete>
+</mapper>

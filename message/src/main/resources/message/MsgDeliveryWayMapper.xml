@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgDeliveryWayMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.MsgDeliveryWay">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR" />
+		<result column="MSG_OBJECT" property="msgObject" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, DELIVERY_WAY, MSG_OBJECT
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MSG_DELIVERY_WAY
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MSG_DELIVERY_WAY
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.MsgDeliveryWay">
+		insert into MSG_DELIVERY_WAY
+		(ID, DELIVERY_WAY, MSG_OBJECT
+		)
+		values (#{id,jdbcType=VARCHAR},
+		#{deliveryWay,jdbcType=VARCHAR},
+		#{msgObject,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.MsgDeliveryWay">
+		insert into MSG_DELIVERY_WAY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY,
+			</if>
+			<if test="msgObject != null">
+				MSG_OBJECT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="deliveryWay != null">
+				#{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="msgObject != null">
+				#{msgObject,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgDeliveryWay">
+		update MSG_DELIVERY_WAY
+		<set>
+			<if test="deliveryWay != null">
+				DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+			</if>
+			<if test="msgObject != null">
+				MSG_OBJECT = #{msgObject,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.MsgDeliveryWay">
+		update
+		MSG_DELIVERY_WAY
+		set DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+		MSG_OBJECT = #{msgObject,jdbcType=VARCHAR}
+		where ID =
+		#{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 获取订阅方式 -->
+	<select id="getDeliveryWay" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM MSG_DELIVERY_WAY WHERE DELIVERY_WAY =#{deliveryWay}
+	</select>
+</mapper>
